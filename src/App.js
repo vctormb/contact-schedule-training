@@ -1,21 +1,33 @@
 import React, { Component } from 'react';
-import logo from './logo.svg';
+import { connect } from 'react-redux'
+
 import './App.css';
 
 class App extends Component {
+  fetchUsers = () => {
+    const { dispatch } = this.props;
+
+    dispatch({
+      type: 'FETCH_USERS_REQUEST',
+      // payload: {} << here we can pass data to the saga (payload name is a convention)
+    });
+  }
+
   render() {
     return (
       <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <h1 className="App-title">Welcome to React</h1>
-        </header>
-        <p className="App-intro">
-          To get started, edit <code>src/App.js</code> and save to reload.
-        </p>
+        <span>It worked!</span>
+
+        {this.fetchUsers()}
       </div>
     );
   }
 }
 
-export default App;
+function mapStateToProps(state) {
+  return {
+    users: state.users
+  }
+}
+
+export default connect(mapStateToProps)(App);
