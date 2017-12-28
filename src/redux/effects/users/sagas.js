@@ -1,10 +1,11 @@
 import { call, put, takeEvery } from 'redux-saga/effects';
+import UsersService from '../../../services/users';
 
 function* fetchUsers(action) {
     try {
-        console.log('SAGA: FETCH USERS WORKED!')
-        // const users = yield call(Api.fetchUser, action.payload.userId);
-        // yield put({ type: "FETCH_USERS_SUCCESS", users: users });
+        const users = yield call(UsersService.getUsers);
+        
+        yield put({ type: "FETCH_USERS_SUCCESS", users: users.data });
     } catch (e) {
         yield put({ type: "FETCH_USERS_FAILURE", message: e.message });
     }
