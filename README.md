@@ -10,5 +10,6 @@ With this app the user can add contacts to his personal list.
 - Redux (https://github.com/reactjs/redux)
 - React-redux (https://github.com/reactjs/react-redux)
 - Redux Saga (https://github.com/redux-saga/redux-saga)
+- Redux Form (https://redux-form.com)
 - React Router (https://github.com/ReactTraining/react-router)
 - Axios (https://www.npmjs.com/package/axios)

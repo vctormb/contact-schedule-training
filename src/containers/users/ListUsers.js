@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { Link } from 'react-router-dom';
 
 class ListUsers extends Component {
     state = {}
@@ -28,7 +29,7 @@ class ListUsers extends Component {
             return (
                 <div key={index}>
                     <span>{val.name} - </span>
-                    <button>Edit</button> 
+                    <button>Edit</button>
                     <button>Delete</button>
                     <br />
                 </div>
@@ -39,7 +40,8 @@ class ListUsers extends Component {
     render() {
         return (
             <div>
-                {this.renderUsers()}
+                {this.renderUsers()} <br />
+                <span><Link to="/">Back to dashboard</Link></span> - <span><Link to="/users/new">New user</Link></span>
             </div>
         );
     }
