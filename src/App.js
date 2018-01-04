@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import { connect } from 'react-redux';
 import {
   BrowserRouter as Router,
   Route,
@@ -22,6 +21,7 @@ class App extends Component {
             <Route exact path="/" component={Dashboard} />
             <Route exact path="/users" component={ListUsers} />
             <Route exact path="/users/new" component={RegisterUser} />
+            <Route exact path="/users/:id/edit" component={RegisterUser} />
             <Route component={NotFound} />
           </Switch>
         </div>

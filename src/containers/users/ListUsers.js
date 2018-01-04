@@ -29,8 +29,7 @@ class ListUsers extends Component {
             return (
                 <div key={index}>
                     <span>{val.name} - </span>
-                    <button>Edit</button>
-                    <button>Delete</button>
+                    <label><Link to={`/users/${val.id}/edit`}>Edit</Link></label> | <label><Link to={`/users/${val.id}/delete`}>Delete</Link></label>
                     <br />
                 </div>
             )
