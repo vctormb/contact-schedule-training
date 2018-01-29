@@ -9,6 +9,8 @@ import createSagaMiddleware from 'redux-saga'; // SAGA
 import rootReducers from './redux/reducers';
 import rootSagas from './redux/effects';
 
+import 'bootstrap/dist/css/bootstrap.css';
+
 import App from './App';
 
 // create the saga middleware

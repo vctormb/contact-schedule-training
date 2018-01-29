@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
+import CustomTable from '../../components/dataDisplay/table/CustomTable'
 
 class ListUsers extends Component {
     state = {}
@@ -18,28 +19,24 @@ class ListUsers extends Component {
         });
     }
 
-    renderUsers = () => {
-        const { usersReducer } = this.props;
-
-        if (usersReducer.users.isLoading) {
-            return <span>Loading...</span>
-        }
-
-        return usersReducer.users.items.map((val, index) => {
-            return (
-                <div key={index}>
-                    <span>{val.name} - </span>
-                    <label><Link to={`/users/${val.id}/edit`}>Edit</Link></label> | <label><Link to={`/users/${val.id}/delete`}>Delete</Link></label>
-                    <br />
-                </div>
-            )
-        });
+    handleRowSelection = (values) => {
+        console.log(values)
     }
 
     render() {
+        const { items } = this.props.usersReducer.users;
+
         return (
             <div>
-                {this.renderUsers()} <br />
+                <CustomTable
+                    data={items}
+                    header={[
+                        { key: 'name', name: 'Name' },
+                        { key: 'email', name: 'Email' },
+                    ]}
+                    rowSelection={this.handleRowSelection}
+                />
+
                 <span><Link to="/">Back to dashboard</Link></span> - <span><Link to="/users/new">New user</Link></span>
             </div>
         );
