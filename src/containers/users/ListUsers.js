@@ -1,7 +1,6 @@
+
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { Link } from 'react-router-dom';
-import CustomTable from '../../components/dataDisplay/table/CustomTable'
 
 class ListUsers extends Component {
     state = {}
@@ -19,25 +18,29 @@ class ListUsers extends Component {
         });
     }
 
-    handleRowSelection = (values) => {
-        console.log(values)
+    renderUsers = () => {
+        const { users } = this.props;
+
+        if (users.users.isLoading) {
+            return <span>Loading...</span>
+        }
+
+        return users.users.items.map((val, index) => {
+            return (
+                <div key={index}>
+                    <span>{val.name} - </span>
+                    <button>Edit</button> 
+                    <button>Delete</button>
+                    <br />
+                </div>
+            )
+        });
     }
 
     render() {
-        const { items } = this.props.usersReducer.users;
-
         return (
             <div>
-                <CustomTable
-                    data={items}
-                    header={[
-                        { key: 'name', name: 'Name' },
-                        { key: 'email', name: 'Email' },
-                    ]}
-                    rowSelection={this.handleRowSelection}
-                />
-
-                <span><Link to="/">Back to dashboard</Link></span> - <span><Link to="/users/new">New user</Link></span>
+                {this.renderUsers()}
             </div>
         );
     }
@@ -45,7 +48,7 @@ class ListUsers extends Component {
 
 function mapStateToProps(state) {
     return {
-        usersReducer: state.users
+        users: state.users
     }
 }
 

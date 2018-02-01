@@ -5,7 +5,7 @@ import usersReducer from './users';
 // all the reducers in one place
 const rootReducers = combineReducers({
     users: usersReducer,
-    form: formReducer
+    form: formReducer,
 });
 
 export default rootReducers;

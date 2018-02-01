@@ -23,8 +23,19 @@ function* fetchUser(action) {
     }
 }
 
+function* addUser(action) {
+    try {
+        // testing redirecting page with react router inside redux-saga
+        yield put(action.push('/users'));
+
+    } catch (e) {
+        yield put({ type: "ADD_USER_FAILURE", message: e.message });
+    }
+}
+
 // here we can pass an array of sagas to export to the rootSagas
 export const userSagas = [
     takeEvery("FETCH_USERS_REQUEST", fetchUsers),
     takeEvery("FETCH_USER_REQUEST", fetchUser),
+    takeEvery("ADD_USER_REQUEST", addUser),
 ];
