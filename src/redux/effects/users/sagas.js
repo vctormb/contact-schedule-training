@@ -1,7 +1,7 @@
 import { call, put, takeEvery } from 'redux-saga/effects';
 import UsersService from '../../../services/users';
 
-function* fetchUsers(action) {
+export function* fetchUsers(action) {
     try {
         const users = yield call(UsersService.getUsers);
 

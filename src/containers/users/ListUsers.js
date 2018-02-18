@@ -2,7 +2,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
-class ListUsers extends Component {
+export class ListUsers extends Component {
     state = {}
 
     componentDidMount() {
@@ -19,13 +19,13 @@ class ListUsers extends Component {
     }
 
     renderUsers = () => {
-        const { users } = this.props;
+        const { usersReducer } = this.props;
 
-        if (users.users.isLoading) {
-            return <span>Loading...</span>
+        if (usersReducer.users.isLoading) {
+            return <span className="fetching-users">Loading...</span>
         }
 
-        return users.users.items.map((val, index) => {
+        return usersReducer.users.items.map((val, index) => {
             return (
                 <div key={index}>
                     <span>{val.name} - </span>
@@ -48,7 +48,7 @@ class ListUsers extends Component {
 
 function mapStateToProps(state) {
     return {
-        users: state.users
+        usersReducer: state.users
     }
 }
 
