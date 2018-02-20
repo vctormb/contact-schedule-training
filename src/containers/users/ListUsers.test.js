@@ -1,7 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { shallow, mount } from 'enzyme';
-import createRouterContext from 'react-router-test-context'
 import { ListUsers } from './ListUsers';
 import reducer from '../../redux/reducers/users';
 
