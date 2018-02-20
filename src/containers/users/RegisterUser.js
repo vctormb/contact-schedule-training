@@ -16,6 +16,7 @@ class RegisterUser extends Component {
     }
 
     render() {
+        console.log(this.props)
         return (
             <div>
                 <RegisterUserForm onSubmit={this.handleSubmit} />

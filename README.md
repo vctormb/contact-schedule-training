@@ -13,3 +13,5 @@ With this app the user can add contacts to his personal list.
 - Redux Form (https://redux-form.com)
 - React Router (https://github.com/ReactTraining/react-router)
 - Axios (https://www.npmjs.com/package/axios)
+- Enzyme (http://airbnb.io/enzyme)
+- Jest (included in create-react-app)

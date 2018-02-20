@@ -18,6 +18,12 @@ export class ListUsers extends Component {
         });
     }
 
+    editUser = (userId) => {
+        const props = this.props;
+
+        props.history.push(`/users/${userId}/edit`);
+    }
+
     renderUsers = () => {
         const { usersReducer } = this.props;
 
@@ -29,7 +35,7 @@ export class ListUsers extends Component {
             return (
                 <div key={index}>
                     <span>{val.name} - </span>
-                    <button>Edit</button> 
+                    <button className={`edit-user-${index}`} onClick={() => this.editUser(val.id)}>Edit</button> 
                     <button>Delete</button>
                     <br />
                 </div>

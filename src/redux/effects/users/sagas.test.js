@@ -9,7 +9,7 @@ describe('fetchUsers() saga effect', () => {
         data: {}
     } // dummy data
 
-    it('should return the UsersService.getUsers call', () => {
+    it('should return the UsersService.getUsers() call', () => {
         expect(gen.next().value).toEqual(call(UsersService.getUsers));
     });
 
