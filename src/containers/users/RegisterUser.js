@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import RegisterUserForm from './RegisterUserForm';
-import { connect } from 'react-redux';
 
 class RegisterUser extends Component {
     handleSubmit = (values) => {
@@ -16,7 +16,6 @@ class RegisterUser extends Component {
     }
 
     render() {
-        console.log(this.props)
         return (
             <div>
                 <RegisterUserForm onSubmit={this.handleSubmit} />

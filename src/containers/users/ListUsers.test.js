@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { shallow, mount } from 'enzyme';
+import createRouterContext from 'react-router-test-context';
 import { ListUsers } from './ListUsers';
 import reducer from '../../redux/reducers/users';
 
@@ -20,8 +21,13 @@ describe('<ListUsers />', () => {
     let props = {
         dispatch,
         ...INITIAL_STATE,
-        history: { push }
+        history: { push },
     };
+
+    const context = createRouterContext();
+    ListUsers.contextTypes = {
+        router: PropTypes.object
+    }
 
     let listUsers = shallow(<ListUsers {...props} />);
 
@@ -31,11 +37,11 @@ describe('<ListUsers />', () => {
 
     describe('when componentDidMount()', () => {
         beforeEach(() => {
-            listUsers = mount(<ListUsers {...props} />);
+            listUsers = mount(<ListUsers {...props} />, { context });
         });
 
         it('should dispatch FETCH_USERS_REQUEST action', () => {
-            expect(dispatch).toBeCalledWith({type: "FETCH_USERS_REQUEST"});
+            expect(dispatch).toBeCalledWith({ type: "FETCH_USERS_REQUEST" });
         });
     });
 
@@ -96,7 +102,11 @@ describe('<ListUsers />', () => {
                 expect(listUsers.instance().props.history.push).toHaveBeenCalledWith(`/users/${2}/edit`);
             });
         });
+    });
 
-
+    describe('when user wants to add a new user', () => {
+        it('should redirect to add new user page', () => {
+            expect(listUsers.find('.add-new-user').props().to).toEqual("/users/new");
+        });
     });
 });

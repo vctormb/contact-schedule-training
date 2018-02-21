@@ -1,6 +1,7 @@
 
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { Link } from 'react-router-dom';
 
 export class ListUsers extends Component {
     state = {}
@@ -35,7 +36,7 @@ export class ListUsers extends Component {
             return (
                 <div key={index}>
                     <span>{val.name} - </span>
-                    <button className={`edit-user-${index}`} onClick={() => this.editUser(val.id)}>Edit</button> 
+                    <button className={`edit-user-${index}`} onClick={() => this.editUser(val.id)}>Edit</button>
                     <button>Delete</button>
                     <br />
                 </div>
@@ -47,6 +48,7 @@ export class ListUsers extends Component {
         return (
             <div>
                 {this.renderUsers()}
+                <Link to="/users/new" className="add-new-user">New user</Link>
             </div>
         );
     }

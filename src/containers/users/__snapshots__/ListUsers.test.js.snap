@@ -1,3 +1,13 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`<ListUsers /> should render properly 1`] = `<div />`;
+exports[`<ListUsers /> should render properly 1`] = `
+<div>
+  <Link
+    className="add-new-user"
+    replace={false}
+    to="/users/new"
+  >
+    New user
+  </Link>
+</div>
+`;
