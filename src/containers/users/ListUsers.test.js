@@ -14,6 +14,9 @@ describe('<ListUsers />', () => {
             users: {
                 items: [],
                 isLoading: false,
+            },
+            deleteUser: {
+                isLoading: false,
             }
         }
     }
@@ -49,6 +52,7 @@ describe('<ListUsers />', () => {
         beforeEach(() => {
             INITIAL_STATE = {
                 usersReducer: {
+                    ...INITIAL_STATE.usersReducer,
                     users: {
                         ...INITIAL_STATE.usersReducer.users,
                         isLoading: true
@@ -70,6 +74,7 @@ describe('<ListUsers />', () => {
         beforeEach(() => {
             INITIAL_STATE = {
                 usersReducer: {
+                    ...INITIAL_STATE.usersReducer,
                     users: {
                         ...INITIAL_STATE.usersReducer.users,
                         items: [{ id: 1, name: 'Foo 1' }, { id: 2, name: 'Foo 2' }],
@@ -104,9 +109,25 @@ describe('<ListUsers />', () => {
         });
     });
 
-    describe('when user wants to add a new user', () => {
+    describe('when the user wants to add a new user', () => {
         it('should redirect to add new user page', () => {
             expect(listUsers.find('.add-new-user').props().to).toEqual("/users/new");
+        });
+    });
+
+    describe('when the user wants to delete a user', () => {        
+        beforeEach(() => {
+            dispatch.mockClear();
+        });
+
+        it('should dispatch DELETE_USER_REQUEST action with userId equals 1', () => {
+            listUsers.find('.delete-user-0').simulate('click');
+            expect(dispatch).toBeCalledWith({ type: 'DELETE_USER_REQUEST', payload: {userId: 1} });
+        });
+
+        it('should dispatch DELETE_USER_REQUEST action with userId equals 2', () => {
+            listUsers.find('.delete-user-1').simulate('click');
+            expect(dispatch).toBeCalledWith({ type: 'DELETE_USER_REQUEST', payload: {userId: 2} });
         });
     });
 });

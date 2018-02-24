@@ -15,7 +15,6 @@ export class ListUsers extends Component {
 
         dispatch({
             type: 'FETCH_USERS_REQUEST',
-            // payload: {} << here we can pass data to the saga (payload name is a convention)
         });
     }
 
@@ -37,16 +36,34 @@ export class ListUsers extends Component {
                 <div key={index}>
                     <span>{val.name} - </span>
                     <button className={`edit-user-${index}`} onClick={() => this.editUser(val.id)}>Edit</button>
-                    <button>Delete</button>
+                    <button className={`delete-user-${index}`} onClick={() => this.deleteUser(val.id)}>Delete</button>
                     <br />
                 </div>
             )
         });
     }
 
+    deleteUser = (userId) => {
+        const { dispatch } = this.props;
+
+        dispatch({
+            type: 'DELETE_USER_REQUEST',
+            payload: {
+                userId
+            }
+        });
+    }
+
+    loadingDeleteUser = () => {
+        return <span className="deleting-user">Loading...</span>
+    }
+
     render() {
+        const { usersReducer } = this.props;
+
         return (
             <div>
+                {usersReducer.deleteUser.isLoading && this.loadingDeleteUser()}
                 {this.renderUsers()}
                 <Link to="/users/new" className="add-new-user">New user</Link>
             </div>

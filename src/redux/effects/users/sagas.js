@@ -26,10 +26,21 @@ function* fetchUser(action) {
 function* addUser(action) {
     try {
         // testing redirecting page with react router inside redux-saga
-        yield put(action.push('/users'));
-
+        action.push('/users');
     } catch (e) {
         yield put({ type: "ADD_USER_FAILURE", message: e.message });
+    }
+}
+
+export function* deleteUser(action) {
+    const { userId } = action.payload;
+
+    try {
+        const deletedUser = yield call(UsersService.deleteUser, userId);
+
+        yield put({ type: "DELETE_USER_SUCCESS", userId });
+    } catch (e) {
+        yield put({ type: "DELETE_USER_FAILURE", message: e.message });
     }
 }
 
@@ -38,4 +49,5 @@ export const userSagas = [
     takeEvery("FETCH_USERS_REQUEST", fetchUsers),
     takeEvery("FETCH_USER_REQUEST", fetchUser),
     takeEvery("ADD_USER_REQUEST", addUser),
+    takeEvery("DELETE_USER_REQUEST", deleteUser),
 ];

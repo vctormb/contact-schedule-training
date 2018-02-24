@@ -15,11 +15,16 @@ const INITIAL_STATE = {
   user: {
     isLoading: false,
     data: {}
+  },
+  deleteUser: {
+    isLoading: false
   }
 };
 
 const users = (state = INITIAL_STATE, action) => {
   switch (action.type) {
+    // FETCH USERS
+
     case 'FETCH_USERS_REQUEST':
       return {
         ...state,
@@ -48,7 +53,7 @@ const users = (state = INITIAL_STATE, action) => {
         }
       }
 
-    // 
+    //  FETCH SINGLE USER
 
     case 'FETCH_USER_REQUEST':
       return {
@@ -69,12 +74,48 @@ const users = (state = INITIAL_STATE, action) => {
         }
       }
 
+    //
+
     case 'REGISTER_USER_RESET':
       return {
         ...state,
         user: {
           ...state.user,
           data: {}
+        }
+      }
+
+    // DELETE USER
+
+    case 'DELETE_USER_REQUEST':
+      return {
+        ...state,
+        deleteUser: {
+          ...state.deleteUser,
+          isLoading: true
+        }
+      }
+
+    case 'DELETE_USER_SUCCESS':
+      return {
+        ...state,
+        users: {
+          ...state.users,
+          items: state.users.items.filter(x => +x.id !== action.userId),
+          isLoading: false
+        },
+        deleteUser: {
+          ...state.deleteUser,
+          isLoading: false
+        }
+      }
+
+    case 'DELETE_USER_FAILURE':
+      return {
+        ...state,
+        deleteUser: {
+          ...state.deleteUser,
+          isLoading: false
         }
       }
 
