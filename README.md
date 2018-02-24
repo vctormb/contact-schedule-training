@@ -1,4 +1,4 @@
-# My contacts
+# Contact Schedule Training
 Small project to share react/redux knowledge with my teammates!
 
 ### About this app:
