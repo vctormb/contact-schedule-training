@@ -1,0 +1,18 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<RegisterUserForm /> should render properly 1`] = `
+<div>
+  <withRouter(Connect(ReduxForm))
+    onSubmit={[Function]}
+  />
+  <br />
+  <span>
+    <Link
+      replace={false}
+      to="/users"
+    >
+      Back to users list
+    </Link>
+  </span>
+</div>
+`;
