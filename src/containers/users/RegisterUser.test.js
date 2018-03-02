@@ -1,9 +1,8 @@
 import React from 'react';
-import PropTypes from 'prop-types';
+import { BrowserRouter as Router } from 'react-router-dom';
+
 import { RegisterUser } from './RegisterUser';
 import { shallow, mount } from 'enzyme';
-
-import createRouterContext from 'react-router-test-context';
 
 import { Provider } from 'react-redux';
 import { createStore } from 'redux';
@@ -16,13 +15,8 @@ describe('<RegisterUserForm />', () => {
 
     let props = {
         dispatch,
-        match: { params: { id: 0 } },
+        match: { params: { id: '' } },
     };
-
-    const context = createRouterContext();
-    RegisterUser.contextTypes = {
-        router: PropTypes.object
-    }
 
     let registerUser = shallow(<RegisterUser {...props} />);
 
@@ -30,22 +24,45 @@ describe('<RegisterUserForm />', () => {
         expect(registerUser).toMatchSnapshot();
     });
 
-    // START
-    
-    describe('when componentDidMount()', () => { // <----------------
-        beforeEach(() => {
-            registerUser = mount(
-                <Provider store={store}>
-                    <RegisterUser {...props} />
-                </Provider>,
-                { context }
-            );
+    describe('when componentDidMount()', () => {
+        // beforeEach(() => {
+        //     registerUser = mount(
+        //         <Provider store={store}>
+        //             <Router>
+        //                 <RegisterUser {...props} />
+        //             </Router>
+        //         </Provider>
+        //     );
+        // });
+
+        describe('and there`s no param id', () => {
+            
+
+            it('should dispatch REGISTER_USER_RESET action', () => {
+                expect(dispatch).toBeCalledWith({ type: 'REGISTER_USER_RESET' });
+            });
         });
 
-        it('should dispatch REGISTER_USER_RESET action', () => { 
-            expect(dispatch).toBeCalledWith({ type: 'REGISTER_USER_RESET' });
+        describe('and there`s a param id', () => {
+            beforeEach(() => {
+                props = {
+                    ...props,
+                    match: { params: { id: 1 } },
+                };
+                
+                registerUser = shallow(<RegisterUser {...props} />);
+                // registerUser = mount(
+                //     <Provider store={store}>
+                //         <Router>
+                //             <RegisterUser {...props} />
+                //         </Router>
+                //     </Provider>
+                // );
+            });
+
+            it('should dispatch FETCH_USER_REQUEST action', () => {
+                expect(dispatch).toBeCalledWith({ type: 'FETCH_USER_REQUEST', payload: { userId: 1 } });
+            });
         });
     });
-
-    // END
 });
