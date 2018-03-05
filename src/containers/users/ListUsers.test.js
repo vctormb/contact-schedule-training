@@ -1,9 +1,6 @@
 import React from 'react';
-import PropTypes from 'prop-types';
-import { shallow, mount } from 'enzyme';
-import createRouterContext from 'react-router-test-context';
+import { shallow } from 'enzyme';
 import { ListUsers } from './ListUsers';
-import reducer from '../../redux/reducers/users';
 
 describe('<ListUsers />', () => {
     const dispatch = jest.fn();
@@ -27,11 +24,6 @@ describe('<ListUsers />', () => {
         history: { push },
     };
 
-    const context = createRouterContext();
-    ListUsers.contextTypes = {
-        router: PropTypes.object
-    }
-
     let listUsers = shallow(<ListUsers {...props} />);
 
     it('should render properly', () => {
@@ -39,10 +31,6 @@ describe('<ListUsers />', () => {
     });
 
     describe('when componentDidMount()', () => {
-        beforeEach(() => {
-            listUsers = mount(<ListUsers {...props} />, { context });
-        });
-
         it('should dispatch FETCH_USERS_REQUEST action', () => {
             expect(dispatch).toBeCalledWith({ type: "FETCH_USERS_REQUEST" });
         });

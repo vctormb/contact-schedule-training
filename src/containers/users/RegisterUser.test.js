@@ -1,21 +1,19 @@
 import React from 'react';
-import { BrowserRouter as Router } from 'react-router-dom';
+import { shallow } from 'enzyme';
 
 import { RegisterUser } from './RegisterUser';
-import { shallow, mount } from 'enzyme';
+import RegisterUserForm from './RegisterUserForm';
 
-import { Provider } from 'react-redux';
-import { createStore } from 'redux';
 import rootReducers from '../../redux/reducers';
-
-let store = createStore(rootReducers);
 
 describe('<RegisterUserForm />', () => {
     const dispatch = jest.fn();
+    const push = jest.fn();
 
     let props = {
         dispatch,
         match: { params: { id: '' } },
+        history: { push },
     };
 
     let registerUser = shallow(<RegisterUser {...props} />);
@@ -25,44 +23,37 @@ describe('<RegisterUserForm />', () => {
     });
 
     describe('when componentDidMount()', () => {
-        // beforeEach(() => {
-        //     registerUser = mount(
-        //         <Provider store={store}>
-        //             <Router>
-        //                 <RegisterUser {...props} />
-        //             </Router>
-        //         </Provider>
-        //     );
-        // });
-
-        describe('and there`s no param id', () => {
-            
-
-            it('should dispatch REGISTER_USER_RESET action', () => {
-                expect(dispatch).toBeCalledWith({ type: 'REGISTER_USER_RESET' });
-            });
+        it('should dispatch REGISTER_USER_RESET action', () => {
+            expect(dispatch).toBeCalledWith({ type: 'REGISTER_USER_RESET' });
         });
 
         describe('and there`s a param id', () => {
             beforeEach(() => {
+                dispatch.mockClear();
+
                 props = {
                     ...props,
                     match: { params: { id: 1 } },
                 };
-                
+
                 registerUser = shallow(<RegisterUser {...props} />);
-                // registerUser = mount(
-                //     <Provider store={store}>
-                //         <Router>
-                //             <RegisterUser {...props} />
-                //         </Router>
-                //     </Provider>
-                // );
+
             });
 
             it('should dispatch FETCH_USER_REQUEST action', () => {
                 expect(dispatch).toBeCalledWith({ type: 'FETCH_USER_REQUEST', payload: { userId: 1 } });
             });
+        });
+    });
+
+    describe('when the form is submitted', () => {
+        beforeEach(() => {
+            dispatch.mockClear();
+            registerUser.find(RegisterUserForm).simulate('submit');
+        });
+
+        it('should dispatch ADD_USER_REQUEST action', () => {
+            expect(dispatch).toHaveBeenCalledWith({type: 'ADD_USER_REQUEST', push: props.history.push })
         });
     });
 });

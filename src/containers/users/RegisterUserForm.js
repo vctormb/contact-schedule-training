@@ -8,24 +8,20 @@ import { Field, FormSection, reduxForm } from 'redux-form';
 import Input from '../../components/Input';
 import { validateForm } from './formValidations/registerUserForm';
 
-class RegisterUserForm extends Component {
+export class RegisterUserForm extends Component {
     render() {
         const { handleSubmit, invalid } = this.props;
 
         return (
             <form onSubmit={handleSubmit}>
-                <div className="teste">
-                    <Field name="name" label="Name" component={Input} type="text" placeholder="Name" />
-                </div>
-                <div>
-                    <Field name="email" label="Email" component={Input} type="email" placeholder="Email" />
-                </div>
-                <div>
-                    <FormSection name="address">
-                        <Field name="city" label="City" component={Input} type="text" />
-                        <Field name="street" label="Street" component={Input} type="text" />
-                    </FormSection>
-                </div>
+                <Field name="name" label="Name" component={Input} type="text" placeholder="Name" />
+
+                <Field name="email" label="Email" component={Input} type="email" placeholder="Email" />
+
+                <FormSection name="address">
+                    <Field name="city" label="City" component={Input} type="text" />
+                    <Field name="street" label="Street" component={Input} type="text" />
+                </FormSection>
                 <button type="submit" disabled={invalid}>Submit</button>
             </form>
         );
