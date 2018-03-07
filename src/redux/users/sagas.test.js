@@ -1,6 +1,6 @@
 import React from 'react';
 import { call, put } from 'redux-saga/effects';
-import UsersService from '../../../services/users';
+import UsersService from '../../services/users';
 import { fetchUsers, deleteUser } from './sagas';
 import { cloneableGenerator } from 'redux-saga/utils';
 

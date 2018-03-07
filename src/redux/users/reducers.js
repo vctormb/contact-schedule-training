@@ -21,7 +21,7 @@ const INITIAL_STATE = {
   }
 };
 
-const users = (state = INITIAL_STATE, action) => {
+const reducers = (state = INITIAL_STATE, action) => {
   switch (action.type) {
     // FETCH USERS
 
@@ -124,4 +124,4 @@ const users = (state = INITIAL_STATE, action) => {
   }
 }
 
-export default users;
+export default reducers;

@@ -1,5 +1,5 @@
 import { call, put, takeEvery } from 'redux-saga/effects';
-import UsersService from '../../../services/users';
+import UsersService from '../../services/users';
 
 export function* fetchUsers(action) {
     try {

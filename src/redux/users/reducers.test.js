@@ -1,7 +1,7 @@
 import React from 'react';
 import { shallow } from 'enzyme';
 import { ListUsers } from '../../containers/users/ListUsers';
-import reducer from '../../redux/reducers/users';
+import reducer from '../../redux/users/reducers';
 
 describe('Users reducer', () => {
     const INITIAL_STATE = {
