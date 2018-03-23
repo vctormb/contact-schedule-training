@@ -3,10 +3,12 @@ import { connect } from 'react-redux';
 import {
   BrowserRouter as Router,
   Route,
-  Switch
+  Switch,
+  withRouter,
 } from 'react-router-dom';
 
 import PrivateRoute from './components/authorization/PrivateRoute';
+import Content from './components/app/Content';
 
 import Login from './containers/login/Login';
 import Dashboard from './containers/dashboard/Dashboard';
@@ -14,19 +16,18 @@ import ListUsers from './containers/users/ListUsers';
 import RegisterUser from './containers/users/RegisterUser';
 import NotFound from './containers/errors/NotFound';
 
+import AuthService from './services/auth';
+
 import './App.css';
 
 class App extends Component {
-  checkIsLoggedIn() {
+  render() {
     const { authReducer } = this.props;
 
-    return authReducer.login.isLoggedIn;
-  }
-
-  render() {
     return (
       <Router>
-        <div className="App"> {/* <-- here we can create a main template to involve the entire app */}
+        <Content>
+
           <Switch>
             <Route exact path="/" component={Login} />
             <Route exact path="/login" component={Login} />
@@ -35,35 +36,34 @@ class App extends Component {
               exact
               path="/dashboard"
               component={Dashboard}
-              authorized={this.checkIsLoggedIn()}
             />
 
             <PrivateRoute
               exact
               path="/users"
               component={ListUsers}
-              authorized={this.checkIsLoggedIn()}
+              roles={['manager', 'admin']}
             />
 
             <PrivateRoute
               exact
               path="/users/new"
               component={RegisterUser}
-              authorized={this.checkIsLoggedIn()}
+              roles={['admin']}
             />
 
-            <Route
+            <PrivateRoute
               exact
               path="/users/:id/edit"
               component={RegisterUser}
-              authorized={this.checkIsLoggedIn()}
             />
 
             <Route exact path="/not-found" component={NotFound} />
 
             <Route component={NotFound} />
           </Switch>
-        </div>
+
+        </Content>
       </Router>
     );
   }

@@ -1,25 +1,37 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { Route, Redirect, } from "react-router-dom";
+import { Route, Redirect, withRouter } from "react-router-dom";
 
-const PrivateRoute = ({ component: Component, authorized, ...rest }) => (
+import WithAuth from './WithAuth'
+
+const PrivateRoute = ({ component: Component, roles, ...rest }) => (
   <Route
     {...rest}
-    render={props => {
-      if (authorized) {
-        // TODO: create roles here
-        return <Component {...props} />;
-      } else {
-        return <Redirect to={{ pathname: "/login", state: { from: props.location } }} />
-      }
-    }
-    }
+    render={routeProps => {
+      return (
+        <WithAuth roles={roles}>
+          {auth => {
+            if (auth.reducer.checkUserLoggedIn.isLoading || auth.reducer.login.isLoggedIn) {
+              if (auth.state.role.isLoading || auth.state.role.authorized) {
+                return <Component {...routeProps} />
+              } else {
+                return <Redirect to={{ pathname: '/not-found' }} />
+              }
+            } else {
+              return <Redirect to={{ pathname: '/login', state: { from: routeProps.location } }} />
+            }
+          }}
+        </WithAuth>
+      )
+
+    }}
+
   />
+
 );
 
 PrivateRoute.propTypes = {
   component: PropTypes.func.isRequired,
-  authorized: PropTypes.bool.isRequired,
 }
 
 export default PrivateRoute;

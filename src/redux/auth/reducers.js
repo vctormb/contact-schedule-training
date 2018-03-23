@@ -14,11 +14,16 @@ const INITIAL_STATE = {
     },
     loggedUser: {
         data: {}
+    },
+    checkUserLoggedIn: {
+        isLoading: true
     }
 };
 
 const reducers = (state = INITIAL_STATE, action) => {
     switch (action.type) {
+
+        // LOGIN
         case 'LOGIN_REQUEST':
             return {
                 ...state,
@@ -37,7 +42,12 @@ const reducers = (state = INITIAL_STATE, action) => {
                     isLoggedIn: true,
                 },
                 loggedUser: {
+                    ...state.loggedUser,
                     data: action.userData
+                },
+                checkUserLoggedIn: {
+                    ...state.checkUserLoggedIn,
+                    isLoading: false
                 }
             }
 
@@ -49,6 +59,27 @@ const reducers = (state = INITIAL_STATE, action) => {
                     isLoading: false
                 }
             }
+
+        // CHECK USER LOGGED IN
+        case 'CHECK_USER_LOGGED_IN_REQUEST':
+            return {
+                ...state,
+                checkUserLoggedIn: {
+                    ...state.checkUserLoggedIn,
+                    isLoading: true,
+                }
+            }
+        
+        // LOGOUT
+        case 'LOGOUT_SUCCESS':
+            return {
+                ...INITIAL_STATE,
+                checkUserLoggedIn: {
+                    ...INITIAL_STATE.checkUserLoggedIn,
+                    isLoading: false,
+                }
+            };
+
 
         default:
             return state;

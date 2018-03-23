@@ -4,18 +4,9 @@ import { connect } from 'react-redux';
 class Login extends Component {
     state = {}
 
-    componentWillMount() {
-        const { authReducer, history, } = this.props;
-
-        if (authReducer.login.isLoggedIn) {
-            history.push('/');
-        }
-    }
-
     login = () => {
-        const props = this.props;
         const { dispatch, history: { push } } = this.props;
-        const { from } = props.location.state || { from: { pathname: "/dashboard" } };
+        const { from } = this.props.location.state || { from: { pathname: "/dashboard" } };
 
         dispatch({
             type: 'LOGIN_REQUEST',
