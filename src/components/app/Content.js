@@ -30,7 +30,7 @@ class Content extends Component {
 
     render() {
         const { authReducer } = this.props;
-console.log(this.props)
+
         return (
             <div className="App">
                 {

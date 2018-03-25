@@ -41,7 +41,6 @@ class WithAuth extends Component {
 
       this.setAuthorizedRole(isAuthorized);
     } else {
-      console.log('no props.roles')
       this.setAuthorizedRole(true);
     }
   }
@@ -63,8 +62,6 @@ class WithAuth extends Component {
       state: { ...state },
       reducer: { ...props.authReducer },
     };
-
-    console.log('withAuth')
 
     return this.props.children(auth)
   }

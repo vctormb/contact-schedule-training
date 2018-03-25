@@ -30,8 +30,6 @@ export function* checkUserLoggedIn(action) {
             yield call(AuthService.logout);
             yield put({ type: "LOGOUT_SUCCESS" });
         }
-
-        // yield put({ type: "CHECK_USER_LOGGED_IN_SUCCESS", isLogged });
     } catch (e) {
         yield put({ type: "LOGOUT_SUCCESS" });
     }
@@ -42,6 +40,7 @@ export function* logout(action) {
         yield call(AuthService.logout);
 
         action.push('/login');
+        
         yield put({ type: "LOGOUT_SUCCESS" });
     } catch (e) {
         // 
