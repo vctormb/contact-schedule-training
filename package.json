@@ -8,6 +8,7 @@
     "history": "^4.7.2",
     "jest-enzyme": "^4.1.1",
     "jwt-decode": "^2.2.0",
+    "lodash": "^4.17.5",
     "react": "^16.2.0",
     "react-cookie": "^2.1.4",
     "react-dom": "^16.2.0",
